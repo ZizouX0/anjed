@@ -1,4 +1,4 @@
-# Cahier des charges — Application d'essayage virtuel de vêtements par IA
+# Cahier des charges — Anjed's Closet (application d'essayage virtuel par IA)
 
 > Document de référence fonctionnel et technique.
 > **Statut :** brouillon validé pour construction — en attente du feu vert final.
@@ -406,8 +406,7 @@ Surprends-moi : l'app doit être assez belle pour donner envie de la montrer. Pr
 
 ## 13. Décisions à confirmer avant construction
 
-- **Nom de l'app** (suggestions féminines/esthétiques à valider) : *Miroir, Mira, Vesta, Aura,
-  Dressly, Essaya…*
+- **Nom de l'app** : **Anjed's Closet** ✅ (application personnelle dédiée à Anjed).
 - **Clé `GEMINI_API_KEY`** : à fournir au moment du Lot 2 (création gratuite sur Google AI Studio).
 - **Liste finale des moods** et nombre de pistes musicales par mood.
 - **Hébergeur gratuit** cible pour le déploiement / installation.
