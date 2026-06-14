@@ -8,3 +8,9 @@ build/
 *.log
 .vercel
 next-env.d.ts
+tsconfig.tsbuildinfo
+
+# Playwright / test artifacts
+/test-results/
+/playwright-report/
+/playwright/.cache/
