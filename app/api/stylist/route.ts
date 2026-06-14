@@ -15,6 +15,7 @@ interface Body {
   message?: string;
   wardrobe?: WardrobeItem[];
   history?: { role: "me" | "ai"; text: string }[];
+  apiKey?: string;
 }
 
 interface GeminiTextPart {
@@ -25,16 +26,19 @@ interface GeminiTextResponse {
 }
 
 export async function POST(req: Request) {
-  const key = process.env.GEMINI_API_KEY;
-  if (!key) {
-    return NextResponse.json({ error: "Clé API manquante (GEMINI_API_KEY)." }, { status: 500 });
-  }
-
   let body: Body;
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: "Requête invalide." }, { status: 400 });
+  }
+
+  const key = (body.apiKey && body.apiKey.trim()) || process.env.GEMINI_API_KEY;
+  if (!key) {
+    return NextResponse.json(
+      { error: "Ajoute ta clé Gemini dans Réglages pour activer la styliste ✨" },
+      { status: 400 },
+    );
   }
 
   const message = body.message?.trim();

@@ -13,6 +13,7 @@ import {
   setProfile,
 } from "@/lib/db";
 import { blobToDataURL, dataURLToBlob } from "@/lib/img";
+import { getApiKey } from "@/lib/apikey";
 import { randomCombo } from "@/lib/combos";
 import type { Item } from "@/lib/types";
 import { useApp } from "../providers";
@@ -73,7 +74,7 @@ function EssayerInner() {
       const r = await fetch("/api/tryon", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ person: personUrl, garments }),
+        body: JSON.stringify({ person: personUrl, garments, apiKey: getApiKey() }),
       });
       const data = await r.json();
       if (!r.ok) throw new Error(data.error || "Génération impossible");

@@ -43,12 +43,7 @@ const PROMPT = [
 ].join(" ");
 
 export async function POST(req: Request) {
-  const key = process.env.GEMINI_API_KEY;
-  if (!key) {
-    return NextResponse.json({ error: "Clé API manquante (GEMINI_API_KEY)." }, { status: 500 });
-  }
-
-  let body: { image?: string };
+  let body: { image?: string; apiKey?: string };
   try {
     body = await req.json();
   } catch {
@@ -56,6 +51,14 @@ export async function POST(req: Request) {
   }
   if (!body.image) {
     return NextResponse.json({ error: "Image manquante." }, { status: 400 });
+  }
+
+  const key = (body.apiKey && body.apiKey.trim()) || process.env.GEMINI_API_KEY;
+  if (!key) {
+    return NextResponse.json(
+      { error: "Ajoute ta clé Gemini dans Réglages pour améliorer la photo ✨" },
+      { status: 400 },
+    );
   }
 
   let res: Response;

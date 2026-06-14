@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { BlobImage } from "@/components/BlobImage";
 import { getItems } from "@/lib/db";
+import { getApiKey } from "@/lib/apikey";
 import type { Item } from "@/lib/types";
 
 interface Msg {
@@ -48,7 +49,7 @@ export default function StylistePage() {
       const r = await fetch("/api/stylist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text, wardrobe, history }),
+        body: JSON.stringify({ message: text, wardrobe, history, apiKey: getApiKey() }),
       });
       const data = await r.json();
       if (!r.ok) throw new Error(data.error || "Réponse impossible");

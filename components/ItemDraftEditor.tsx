@@ -4,6 +4,7 @@ import { useState } from "react";
 import { BlobImage } from "./BlobImage";
 import { CATEGORIES, type Category } from "@/lib/types";
 import { blobToDataURL, dataURLToBlob } from "@/lib/img";
+import { getApiKey } from "@/lib/apikey";
 
 /** Panneau d'ajout : aperçu + amélioration IA optionnelle + catégorie + nom. */
 export function ItemDraftEditor({
@@ -30,7 +31,7 @@ export function ItemDraftEditor({
       const r = await fetch("/api/enhance", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ image: dataUrl }),
+        body: JSON.stringify({ image: dataUrl, apiKey: getApiKey() }),
       });
       const data = await r.json();
       if (!r.ok) throw new Error(data.error || "Amélioration impossible");

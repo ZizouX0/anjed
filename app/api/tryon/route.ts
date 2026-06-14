@@ -55,19 +55,19 @@ function extractImage(data: GeminiResponse): string | null {
 }
 
 export async function POST(req: Request) {
-  const key = process.env.GEMINI_API_KEY;
-  if (!key) {
-    return NextResponse.json(
-      { error: "Clé API manquante. Ajoute GEMINI_API_KEY dans la configuration du serveur." },
-      { status: 500 },
-    );
-  }
-
-  let body: { person?: string; garments?: string[]; prompt?: string };
+  let body: { person?: string; garments?: string[]; prompt?: string; apiKey?: string };
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: "Requête invalide." }, { status: 400 });
+  }
+
+  const key = (body.apiKey && body.apiKey.trim()) || process.env.GEMINI_API_KEY;
+  if (!key) {
+    return NextResponse.json(
+      { error: "Ajoute ta clé Gemini dans Réglages pour activer l'essayage ✨" },
+      { status: 400 },
+    );
   }
 
   const { person, garments, prompt } = body;

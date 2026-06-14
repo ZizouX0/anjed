@@ -4,12 +4,16 @@ import { useEffect, useState } from "react";
 import { ImagePicker } from "@/components/ImagePicker";
 import { BlobImage } from "@/components/BlobImage";
 import { clearProfile, getProfile, setProfile, wipeAll } from "@/lib/db";
+import { getApiKey, setApiKey } from "@/lib/apikey";
 
 export default function ReglagesPage() {
   const [photo, setPhoto] = useState<Blob | null>(null);
+  const [key, setKey] = useState("");
+  const [savedKey, setSavedKey] = useState(false);
 
   useEffect(() => {
     getProfile().then((p) => setPhoto(p?.photo ?? null)).catch(() => {});
+    setKey(getApiKey());
   }, []);
 
   return (
@@ -17,6 +21,57 @@ export default function ReglagesPage() {
       <header className="app-header">
         <h1 className="section-title">Réglages</h1>
       </header>
+
+      <section className="card stack">
+        <h2>Clé IA</h2>
+        <p className="muted-text">
+          Colle ta clé Google Gemini (gratuite) pour activer l&rsquo;essayage, la styliste et
+          l&rsquo;amélioration des photos. Elle reste <strong>sur ton téléphone</strong>.{" "}
+          <a href="https://aistudio.google.com/apikey" target="_blank" rel="noreferrer">
+            En obtenir une
+          </a>
+          .
+        </p>
+        <label className="field">
+          <span className="label">Clé Gemini</span>
+          <input
+            className="input"
+            type="password"
+            name="gemini-key"
+            autoComplete="off"
+            spellCheck={false}
+            placeholder="AIza…"
+            value={key}
+            onChange={(e) => {
+              setKey(e.target.value);
+              setSavedKey(false);
+            }}
+          />
+        </label>
+        <div className="toolbar">
+          <button
+            className="btn btn--primary"
+            onClick={() => {
+              setApiKey(key);
+              setSavedKey(true);
+            }}
+          >
+            {savedKey ? "Clé enregistrée ✓" : "Enregistrer la clé"}
+          </button>
+          {key && (
+            <button
+              className="btn btn--ghost"
+              onClick={() => {
+                setKey("");
+                setApiKey("");
+                setSavedKey(false);
+              }}
+            >
+              Effacer
+            </button>
+          )}
+        </div>
+      </section>
 
       <section className="card stack">
         <h2>Ma photo</h2>
@@ -53,10 +108,9 @@ export default function ReglagesPage() {
       <section className="card stack">
         <h2>Confidentialité</h2>
         <p className="muted-text">
-          Tes photos et ton dressing restent <strong>sur ton téléphone</strong>. Rien n&rsquo;est
-          publié ni partagé sans toi. Au moment d&rsquo;un essayage, ta photo est envoyée au service
-          d&rsquo;IA de Google (Gemini) uniquement pour générer l&rsquo;image, puis l&rsquo;application
-          ne la conserve pas.
+          Tes photos, ton dressing et ta clé restent <strong>sur ton téléphone</strong>. Lors
+          d&rsquo;un essayage, ta photo et ta clé sont envoyées au service d&rsquo;IA de Google
+          (Gemini) uniquement pour générer l&rsquo;image ; l&rsquo;application ne les conserve pas.
         </p>
       </section>
 
