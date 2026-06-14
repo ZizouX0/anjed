@@ -110,6 +110,7 @@ export default function DressingPage() {
               <button
                 className="btn btn--ghost"
                 onClick={async () => {
+                  if (!confirm("Supprimer cette pièce ?")) return;
                   await deleteItem(active.id);
                   setActive(null);
                   reload();

@@ -54,5 +54,9 @@ d'orchestre.
 
 - **Cycle 0** — Fondations : PWA, dressing, découvertes web, essayage IA (Gemini), historique,
   combos, mood (musique + couleurs), design « Soie & Lumière », build vert. ✅
-- **Cycle 1** — Veille concurrentielle (agent Chercheur) + tests (agent Test) → priorisation
-  des prochaines features. _en cours_
+- **Cycle 1** — Veille concurrentielle (Chercheur) + tests unitaires (Test, 35 verts) →
+  priorisation impitoyable. ✅
+- **Cycle 2** — Styliste IA conversationnelle, « améliorer la photo », comparer des looks,
+  lookbooks & agenda ; design des nouveaux écrans (Soie & Lumière) ; build vert + 35 tests. ✅
+- **Cycle 3** — DevOps (CI + E2E) + audit accessibilité (web-design-guidelines) + captures
+  réelles (webapp-testing). _en cours_

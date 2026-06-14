@@ -132,6 +132,7 @@ export default function LooksPage() {
               <button
                 className="btn btn--ghost"
                 onClick={async () => {
+                  if (!confirm("Supprimer ce look ?")) return;
                   await deleteLook(active.id);
                   setActive(null);
                   reload();

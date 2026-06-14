@@ -77,7 +77,7 @@ export default function StylistePage() {
         <h1 className="section-title">Ta styliste</h1>
       </header>
 
-      <div className="chat__messages">
+      <div className="chat__messages" aria-live="polite">
         {messages.map((m, idx) => (
           <div
             key={idx}
@@ -130,6 +130,9 @@ export default function StylistePage() {
       <div className="chat__composer">
         <input
           className="input"
+          name="message"
+          autoComplete="off"
+          enterKeyHint="send"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => {

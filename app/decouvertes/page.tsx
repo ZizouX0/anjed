@@ -80,6 +80,10 @@ export default function DecouvertesPage() {
             <span className="label">Coller le lien d&rsquo;un article</span>
             <input
               className="input"
+              type="url"
+              name="garment-url"
+              autoComplete="off"
+              spellCheck={false}
               value={url}
               onChange={(e) => setUrl(e.target.value)}
               placeholder="https://…"
@@ -141,6 +145,7 @@ export default function DecouvertesPage() {
               <button
                 className="btn btn--ghost"
                 onClick={async () => {
+                  if (!confirm("Supprimer cet article ?")) return;
                   await deleteItem(active.id);
                   setActive(null);
                   reload();

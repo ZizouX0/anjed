@@ -6,7 +6,7 @@
 
 .app-main {
   min-height: 100dvh;
-  padding-bottom: calc(104px + env(safe-area-inset-bottom));
+  padding-bottom: calc(124px + env(safe-area-inset-bottom));
 }
 
 /* ----- Accueil ----- */
@@ -258,4 +258,23 @@
 /* ----- Zone danger (réglages) ----- */
 .danger h2 {
   color: #c0392b;
+}
+
+/* ----- Détails d'accessibilité / robustesse (web-design-guidelines) ----- */
+button,
+a,
+.chip,
+.tab {
+  touch-action: manipulation;
+}
+.modal__card {
+  overscroll-behavior: contain;
+}
+.item-card__name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bubble {
+  overflow-wrap: anywhere;
 }
