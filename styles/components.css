@@ -1,0 +1,613 @@
+/* =====================================================================
+   Anjed's Closet — components.css
+   Composants UI. STRICTEMENT construits sur les jetons de tokens.css,
+   donc un changement de data-mood re-thématise tout automatiquement.
+   À inclure APRÈS tokens.css et moods.css.
+   Classes : .btn .card .badge .chip .bottom-nav .input .field .label
+             .grid .thumb .mood-selector .player .shimmer .spinner
+             .app-header .screen .empty-state .fab  (+ variantes)
+   ===================================================================== */
+
+/* =====================================================================
+   BASE PAGE & TITRES
+   ===================================================================== */
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+}
+
+h1, h2, h3, h4 { font-family: var(--font-display); }
+
+/* Utilitaire de fond signature : le halo qui respire */
+.gradient-hero {
+  background: var(--gradient-hero);
+  background-attachment: fixed;
+}
+
+/* =====================================================================
+   STRUCTURE — écran plein, en-tête, états vides
+   ===================================================================== */
+
+/* .screen — conteneur d'un écran plein, mobile-first, type app native */
+.screen {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  padding:
+    calc(var(--safe-top) + var(--space-5))
+    var(--space-5)
+    calc(var(--safe-bottom) + 96px); /* place pour la bottom-nav */
+  background: var(--gradient-hero);
+  background-attachment: fixed;
+}
+
+/* .app-header — titre d'écran chaleureux, collant en haut */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 56px;
+  padding:
+    calc(var(--safe-top) + var(--space-2))
+    var(--space-5)
+    var(--space-2);
+  margin: 0 calc(-1 * var(--space-5)) var(--space-4);
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
+  -webkit-backdrop-filter: saturate(1.4) blur(14px);
+  backdrop-filter: saturate(1.4) blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.app-header h1,
+.app-header h2 {
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.02em;
+}
+.app-header > :last-child:not(:first-child) { margin-left: auto; }
+
+/* .empty-state — états vides JOLIS (jamais déprimants) */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--space-3);
+  padding: var(--space-8) var(--space-5);
+  margin: auto;
+  max-width: 22rem;
+}
+.empty-state__emoji {
+  font-size: 3.25rem;
+  line-height: 1;
+  filter: drop-shadow(0 6px 14px hsl(var(--shadow-color) / .22));
+  animation: floaty 4s var(--ease) infinite;
+}
+.empty-state h2,
+.empty-state h3 {
+  font-style: italic;
+  color: var(--text);
+}
+.empty-state p { color: var(--text-muted); }
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50%      { transform: translateY(-8px) rotate(2deg); }
+}
+
+/* =====================================================================
+   BOUTONS — .btn et variantes
+   ===================================================================== */
+.btn {
+  --_btn-bg: var(--surface);
+  --_btn-fg: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;                /* cible tactile */
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.01em;
+  line-height: 1;
+  color: var(--_btn-fg);
+  background: var(--_btn-bg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  user-select: none;
+  -webkit-user-select: none;
+  white-space: nowrap;
+  transition:
+    transform var(--dur-fast) var(--ease-spring),
+    box-shadow var(--dur) var(--ease),
+    background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    filter var(--dur) var(--ease);
+}
+.btn:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.btn:active { transform: scale(0.97); box-shadow: var(--shadow-sm); }
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.5;
+  pointer-events: none;
+  box-shadow: none;
+}
+
+/* primaire — dégradé bijou + texte sur primaire */
+.btn--primary {
+  --_btn-fg: var(--text-on-primary);
+  color: var(--text-on-primary);
+  background:
+    linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  border-color: transparent;
+  box-shadow:
+    var(--shadow-md),
+    inset 0 1px 0 hsl(0 0% 100% / .25);
+}
+.btn--primary:hover {
+  filter: brightness(1.04) saturate(1.05);
+  box-shadow: var(--shadow-lg), inset 0 1px 0 hsl(0 0% 100% / .3);
+}
+.btn--primary:active { filter: brightness(0.98); }
+
+/* fantôme — léger, transparent */
+.btn--ghost {
+  background: transparent;
+  color: var(--primary);
+  border-color: color-mix(in srgb, var(--primary) 35%, transparent);
+  box-shadow: none;
+}
+.btn--ghost:hover {
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+  box-shadow: none;
+}
+
+/* grande taille — actions désirables (« Essayer ») */
+.btn--lg {
+  min-height: 56px;
+  padding: var(--space-4) var(--space-6);
+  font-size: var(--fs-lg);
+  border-radius: var(--radius-xl);
+}
+
+/* pleine largeur */
+.btn--block { display: flex; width: 100%; }
+
+/* =====================================================================
+   CARTES — .card et .card--interactive
+   ===================================================================== */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-5);
+  overflow: hidden;
+}
+.card--interactive {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    transform var(--dur) var(--ease-spring),
+    box-shadow var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+.card--interactive:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: color-mix(in srgb, var(--primary) 30%, var(--border));
+}
+.card--interactive:active { transform: translateY(-1px) scale(0.99); }
+
+/* =====================================================================
+   BADGES — origine perso vs web (séparation stricte)
+   ===================================================================== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0.28em 0.7em;
+  border-radius: var(--radius-full);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  white-space: nowrap;
+}
+/* « perso » — chaud, intime (mes vêtements) */
+.badge--perso {
+  color: var(--text-on-primary);
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border-color: transparent;
+}
+/* « web / à tester » — frais, distinct, jamais confondu avec le perso */
+.badge--web {
+  color: var(--text);
+  background: color-mix(in srgb, var(--accent-2) 26%, var(--surface));
+  border-color: color-mix(in srgb, var(--accent-2) 50%, transparent);
+}
+
+/* =====================================================================
+   CHIPS — filtres (catégorie, couleur)
+   ===================================================================== */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 38px;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.chip:hover {
+  border-color: color-mix(in srgb, var(--primary) 35%, var(--border));
+}
+.chip:active { transform: scale(0.96); }
+.chip--active {
+  color: var(--text-on-primary);
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  border-color: transparent;
+  box-shadow: var(--shadow-md);
+}
+
+/* =====================================================================
+   NAVIGATION DU BAS — barre flottante, pouce-friendly
+   ===================================================================== */
+.bottom-nav {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--safe-bottom) + var(--space-3));
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: var(--space-1);
+  width: min(440px, calc(100% - var(--space-5) * 2));
+  padding: var(--space-2);
+  background: color-mix(in srgb, var(--bg-elevated) 80%, transparent);
+  -webkit-backdrop-filter: saturate(1.6) blur(18px);
+  backdrop-filter: saturate(1.6) blur(18px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-lg);
+}
+.bottom-nav__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  flex: 1;
+  min-width: 44px;
+  min-height: 52px;
+  padding: var(--space-2) var(--space-1);
+  border-radius: var(--radius-lg);
+  color: var(--text-muted);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  text-align: center;
+}
+.bottom-nav__item svg { width: 24px; height: 24px; }
+.bottom-nav__item:active { transform: scale(0.92); }
+.bottom-nav__item--active {
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+}
+/* bouton central proéminent « Essayer » */
+.bottom-nav__cta {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  margin-top: -22px;            /* déborde vers le haut, désirable */
+  border-radius: var(--radius-full);
+  color: var(--text-on-primary);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  box-shadow:
+    var(--shadow-lg),
+    0 0 0 6px color-mix(in srgb, var(--bg-elevated) 80%, transparent),
+    inset 0 1px 0 hsl(0 0% 100% / .3);
+}
+.bottom-nav__cta svg { width: 28px; height: 28px; }
+.bottom-nav__cta:hover { filter: brightness(1.05); transform: translateY(-2px); }
+.bottom-nav__cta:active { transform: scale(0.95); }
+
+/* =====================================================================
+   FORMULAIRES — .field / .label / .input
+   ===================================================================== */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+.label {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--text);
+  letter-spacing: 0.01em;
+  padding-left: var(--space-1);
+}
+.input {
+  width: 100%;
+  min-height: 50px;
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--text);
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  appearance: none;
+  -webkit-appearance: none;
+  transition:
+    border-color var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease),
+    background-color var(--dur) var(--ease);
+}
+.input::placeholder { color: var(--text-muted); opacity: 0.85; }
+.input:hover { border-color: color-mix(in srgb, var(--primary) 30%, var(--border)); }
+.input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--ring) 45%, transparent);
+}
+textarea.input { min-height: 110px; resize: vertical; line-height: 1.5; }
+
+/* =====================================================================
+   GRILLE & VIGNETTES — dressing / découvertes
+   ===================================================================== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+@media (min-width: 480px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 768px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+
+.thumb {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    transform var(--dur) var(--ease-spring),
+    box-shadow var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.thumb:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: color-mix(in srgb, var(--primary) 35%, var(--border));
+}
+.thumb:active { transform: scale(0.98); }
+/* dégradé bas pour poser un badge/nom par-dessus l'image */
+.thumb::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 45%;
+  background: linear-gradient(to top, hsl(var(--shadow-color) / .42), transparent);
+  pointer-events: none;
+}
+.thumb > .badge { position: absolute; top: var(--space-2); left: var(--space-2); z-index: 2; }
+
+/* =====================================================================
+   SÉLECTEUR DE MOOD — l'élément signature
+   ===================================================================== */
+.mood-selector {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+  width: 100%;
+}
+@media (min-width: 420px) { .mood-selector { grid-template-columns: repeat(3, 1fr); } }
+
+.mood-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: var(--space-1);
+  aspect-ratio: 4 / 5;
+  padding: var(--space-4);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  cursor: pointer;
+  color: var(--text);
+  background: var(--gradient-hero);   /* aperçu vivant du mood */
+  border: 2px solid var(--border);
+  box-shadow: var(--shadow-md);
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    transform var(--dur) var(--ease-spring),
+    box-shadow var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+.mood-card__emoji {
+  font-size: 2rem;
+  line-height: 1;
+  filter: drop-shadow(0 4px 10px hsl(var(--shadow-color) / .25));
+}
+.mood-card__name {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.01em;
+}
+.mood-card:hover { transform: translateY(-4px) scale(1.01); box-shadow: var(--shadow-lg); }
+.mood-card:active { transform: scale(0.98); }
+.mood-card--active {
+  border-color: var(--primary);
+  box-shadow:
+    var(--shadow-lg),
+    0 0 0 4px color-mix(in srgb, var(--ring) 40%, transparent);
+}
+/* pastille « coche » sur le mood actif */
+.mood-card--active::after {
+  content: "✓";
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: var(--fw-bold);
+  color: var(--text-on-primary);
+  background: var(--primary);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Chaque carte affiche l'ambiance de SON mood, quel que soit le mood actif.
+   (Le scope data-mood sur la carte permet un aperçu fidèle.) */
+.mood-card[data-mood] { /* hérite des jetons surchargés via moods.css */ }
+
+/* =====================================================================
+   LECTEUR DE MUSIQUE — .player
+   ===================================================================== */
+.player {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-md);
+}
+.player__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  flex: 0 0 auto;
+  border-radius: var(--radius-full);
+  color: var(--text-on-primary);
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  box-shadow: var(--shadow-sm), inset 0 1px 0 hsl(0 0% 100% / .25);
+}
+.player__btn svg { width: 22px; height: 22px; }
+.player__btn:hover { filter: brightness(1.05); }
+.player__btn:active { transform: scale(0.92); }
+/* variante discrète (muet / volume / piste suivante) */
+.player__btn--soft {
+  width: 40px;
+  height: 40px;
+  color: var(--text);
+  background: var(--surface-2);
+  box-shadow: none;
+}
+
+/* =====================================================================
+   ÉTATS DE CHARGEMENT — .shimmer & .spinner (jolis, jamais tristes)
+   ===================================================================== */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-2);
+  border-radius: var(--radius-md);
+}
+.shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--surface) 70%, transparent) 50%,
+    transparent 100%);
+  animation: shimmer 1.6s var(--ease) infinite;
+}
+@keyframes shimmer { 100% { transform: translateX(100%); } }
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  border: 3px solid color-mix(in srgb, var(--primary) 22%, transparent);
+  border-top-color: var(--primary);
+  animation: spin 0.9s var(--ease) infinite;
+}
+.spinner--lg { width: 60px; height: 60px; border-width: 4px; }
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* =====================================================================
+   FAB — bouton d'action flottant (ex. « + ajouter un vêtement »)
+   ===================================================================== */
+.fab {
+  position: fixed;
+  right: var(--space-5);
+  bottom: calc(var(--safe-bottom) + 92px); /* au-dessus de la bottom-nav */
+  z-index: 45;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  border-radius: var(--radius-full);
+  color: var(--text-on-primary);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  box-shadow: var(--shadow-lg), inset 0 1px 0 hsl(0 0% 100% / .3);
+  transition:
+    transform var(--dur) var(--ease-spring),
+    box-shadow var(--dur) var(--ease),
+    filter var(--dur) var(--ease);
+}
+.fab svg { width: 28px; height: 28px; }
+.fab:hover { transform: translateY(-2px) rotate(90deg); filter: brightness(1.05); box-shadow: var(--shadow-lg); }
+.fab:active { transform: scale(0.93); }
+
+/* =====================================================================
+   ACCESSIBILITÉ — mouvement réduit
+   ===================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

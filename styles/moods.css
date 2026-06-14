@@ -1,0 +1,166 @@
+/* =====================================================================
+   Anjed's Closet — moods.css
+   6 palettes signature. Chacune surcharge UNIQUEMENT les jetons couleur
+   sémantiques (+ --gradient-hero) définis dans tokens.css.
+   Basculer data-mood sur <html> re-thématise TOUTE l'app.
+        <html data-mood="cosy|romantic|boss|glow|dreamy|fun">
+   Contraste pensé pour rester lisible (corps ~AA). Voir DESIGN.md §6.
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   🌙 COSY / CHILL — « le soir sous un plaid »
+   Terracotta, caramel, crème latte. Chaleureux, cocooning.
+   --------------------------------------------------------------------- */
+:root[data-mood="cosy"] {
+  --bg:            #f7ede2;
+  --bg-elevated:   #fdf6ec;
+  --surface:       #fffaf3;
+  --surface-2:     #f0ddca;
+  --text:          #4a3526;  /* brun chocolat doux */
+  --text-muted:    #9b8068;
+  --text-on-primary:#fff8f1;
+  --primary:       #c47a4e;  /* terracotta caramel */
+  --primary-hover: #b0683d;
+  --accent:        #d99a6c;
+  --accent-2:      #b58a6f;
+  --border:        #ecd9c4;
+  --ring:          #d59a6b;
+  --shadow-color:  25 40% 38%;
+  --gradient-hero:
+    radial-gradient(120% 90% at 12% 0%,  #f6d7b8 0%, transparent 55%),
+    radial-gradient(120% 90% at 95% 8%,  #ecc6a6 0%, transparent 50%),
+    radial-gradient(140% 120% at 50% 115%,#e9c39d 0%, transparent 62%),
+    linear-gradient(180deg, #f7ede2 0%, #f3e3d1 100%);
+}
+
+/* ---------------------------------------------------------------------
+   💗 ROMANTIQUE — « l'aube rose »
+   Rose poudré, framboise tendre, pétale. Doux, amoureux, rêveur.
+   --------------------------------------------------------------------- */
+:root[data-mood="romantic"] {
+  --bg:            #fdeef1;
+  --bg-elevated:   #fff5f7;
+  --surface:       #fffbfc;
+  --surface-2:     #fbdde6;
+  --text:          #5a2740;  /* prune framboise */
+  --text-muted:    #a8728a;
+  --text-on-primary:#fff7fa;
+  --primary:       #e0698f;  /* rose framboise */
+  --primary-hover: #d24f79;
+  --accent:        #f3a6c0;
+  --accent-2:      #d98fc4;
+  --border:        #f8d4e0;
+  --ring:          #ef9bb8;
+  --shadow-color:  338 50% 48%;
+  --gradient-hero:
+    radial-gradient(120% 95% at 0% 0%,   #ffd6e4 0%, transparent 55%),
+    radial-gradient(115% 90% at 100% 5%, #ffc8de 0%, transparent 50%),
+    radial-gradient(140% 120% at 50% 118%,#f7cfeb 0%, transparent 60%),
+    linear-gradient(180deg, #fdeef1 0%, #fbe2ec 100%);
+}
+
+/* ---------------------------------------------------------------------
+   👑 CONFIANCE / BOSS — « le velours du soir » (mood SOMBRE)
+   Prune profonde, magenta affirmé, or rose. Puissant, empowering.
+   --------------------------------------------------------------------- */
+:root[data-mood="boss"] {
+  --bg:            #241228;
+  --bg-elevated:   #2f1936;
+  --surface:       #38203f;  /* velours surélevé */
+  --surface-2:     #4a2c53;
+  --text:          #fbeef6;  /* blanc rosé */
+  --text-muted:    #cba6c6;
+  --text-on-primary:#2a1330;
+  --primary:       #f4b8d0;  /* or rose lumineux sur fond sombre */
+  --primary-hover: #f7c8db;
+  --accent:        #e07bb0;
+  --accent-2:      #b98ce6;
+  --border:        #4d2f57;
+  --ring:          #e89ec4;
+  --shadow-color:  300 60% 8%;
+  --gradient-hero:
+    radial-gradient(120% 95% at 8% 0%,   #5a2a63 0%, transparent 55%),
+    radial-gradient(120% 90% at 100% 6%, #7d2f6b 0%, transparent 52%),
+    radial-gradient(150% 130% at 50% 120%,#3a1c52 0%, transparent 60%),
+    linear-gradient(180deg, #281430 0%, #1d0f24 100%);
+}
+
+/* ---------------------------------------------------------------------
+   ✨ GLOW / ÉNERGIQUE — « le plein soleil »
+   Corail vif, pêche, or chaud. Pétillant, solaire, vitaminé.
+   --------------------------------------------------------------------- */
+:root[data-mood="glow"] {
+  --bg:            #fff1e6;
+  --bg-elevated:   #fff8f0;
+  --surface:       #fffdfa;
+  --surface-2:     #ffe2cc;
+  --text:          #5e2f1c;  /* brun corail profond */
+  --text-muted:    #b07757;
+  --text-on-primary:#fff6ee;
+  --primary:       #f47b51;  /* corail soleil */
+  --primary-hover: #e8633a;
+  --accent:        #ffb27a;
+  --accent-2:      #ff9aa8;
+  --border:        #ffdcc4;
+  --ring:          #ff9d72;
+  --shadow-color:  18 70% 45%;
+  --gradient-hero:
+    radial-gradient(120% 95% at 5% 0%,   #ffd9a8 0%, transparent 55%),
+    radial-gradient(120% 90% at 100% 0%, #ffc0a0 0%, transparent 52%),
+    radial-gradient(140% 120% at 50% 118%,#ffb9c2 0%, transparent 60%),
+    linear-gradient(180deg, #fff1e6 0%, #ffe7d6 100%);
+}
+
+/* ---------------------------------------------------------------------
+   ☁️ RÊVEUSE / DREAMY — « la tête dans les nuages »
+   Lavande, lilas, bleu-ciel laiteux. Éthéré, flottant, apaisant.
+   --------------------------------------------------------------------- */
+:root[data-mood="dreamy"] {
+  --bg:            #f1eefb;
+  --bg-elevated:   #f8f6ff;
+  --surface:       #fcfbff;
+  --surface-2:     #e6e0f8;
+  --text:          #3a3258;  /* indigo brumeux */
+  --text-muted:    #8a82ac;
+  --text-on-primary:#fbfaff;
+  --primary:       #9d8ce0;  /* lavande */
+  --primary-hover: #8775d4;
+  --accent:        #b6a6ec;
+  --accent-2:      #a6c4f0;
+  --border:        #e3dcf6;
+  --ring:          #b3a4ec;
+  --shadow-color:  255 45% 50%;
+  --gradient-hero:
+    radial-gradient(120% 95% at 0% 0%,   #dcd2fb 0%, transparent 55%),
+    radial-gradient(120% 90% at 100% 4%, #cfd9fb 0%, transparent 52%),
+    radial-gradient(150% 125% at 50% 120%,#e7d4f7 0%, transparent 62%),
+    linear-gradient(180deg, #f1eefb 0%, #ebe6fa 100%);
+}
+
+/* ---------------------------------------------------------------------
+   🪩 FUN / Y2K — « la boule à facettes »
+   Fuchsia bonbon, cyan électrique, citron. Ludique, espiègle.
+   (Vif mais doux sur fond lilas pâle pour ne pas agresser l'œil.)
+   --------------------------------------------------------------------- */
+:root[data-mood="fun"] {
+  --bg:            #fdeaf7;
+  --bg-elevated:   #fef2fb;
+  --surface:       #fffafd;
+  --surface-2:     #fcd6f0;
+  --text:          #5a1b56;  /* violet bonbon profond */
+  --text-muted:    #b061a6;
+  --text-on-primary:#fff5fc;
+  --primary:       #e8439e;  /* fuchsia */
+  --primary-hover: #d62a8c;
+  --accent:        #3ec6d6;  /* cyan électrique */
+  --accent-2:      #ffd23e;  /* citron pop */
+  --border:        #fbcfee;
+  --ring:          #f06fb6;
+  --shadow-color:  320 65% 45%;
+  --gradient-hero:
+    radial-gradient(115% 90% at 0% 0%,   #ffc6ec 0%, transparent 52%),
+    radial-gradient(110% 85% at 100% 6%, #b7f0f6 0%, transparent 50%),
+    radial-gradient(120% 90% at 80% 100%,#ffe9a3 0%, transparent 48%),
+    radial-gradient(140% 120% at 20% 118%,#f3c3f0 0%, transparent 58%),
+    linear-gradient(180deg, #fdeaf7 0%, #f7e0f6 100%);
+}

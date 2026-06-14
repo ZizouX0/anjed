@@ -1,0 +1,200 @@
+/* =====================================================================
+   Anjed's Closet — tokens.css
+   Fondation de design (non-couleur) + palette PAR DÉFAUT « Blush Champagne ».
+   Les couleurs sont des jetons SÉMANTIQUES : un mood (moods.css) les surcharge
+   et re-thématise toute l'app. Inclure CE fichier en premier.
+   Polices : Fraunces (titres) + Plus Jakarta Sans (texte). Voir DESIGN.md.
+   ===================================================================== */
+
+:root {
+  /* ---------------------------------------------------------------
+     COULEURS SÉMANTIQUES — palette par défaut « Blush Champagne »
+     (rose poudré crème, neutre et flatteur, avant tout choix de mood)
+     --------------------------------------------------------------- */
+  --bg:            #fdf6f3;  /* fond de l'app (le halo se pose dessus) */
+  --bg-elevated:   #fffaf8;  /* fond surélevé (modales, feuilles) */
+  --surface:       #ffffff;  /* cartes, champs — verre dépoli clair */
+  --surface-2:     #f6e9e6;  /* surface secondaire / survol */
+  --text:          #4a2f35;  /* texte principal — brun-prune (jamais noir) */
+  --text-muted:    #9a7a80;  /* texte secondaire / légendes */
+  --text-on-primary:#ffffff; /* texte sur bouton/aplats primaires */
+  --primary:       #d9849a;  /* rose mauve — action principale */
+  --primary-hover: #c96e87;  /* primaire au survol/appui */
+  --accent:        #e8a87c;  /* pêche dorée — accent chaud (dégradés) */
+  --accent-2:      #c7a0c9;  /* mauve tendre — second accent (bijou) */
+  --border:        #f0dcd8;  /* lignes / contours très doux */
+  --ring:          #e3a7b6;  /* halo de focus (accessibilité) */
+  --gradient-hero:
+    radial-gradient(120% 100% at 0% 0%,   #ffe3d6 0%, transparent 55%),
+    radial-gradient(120% 100% at 100% 0%, #ffd9e6 0%, transparent 50%),
+    radial-gradient(120% 120% at 50% 110%,#f4dcef 0%, transparent 60%),
+    linear-gradient(180deg, #fdf6f3 0%, #fbeef0 100%);
+
+  /* ---------------------------------------------------------------
+     FORME — rayons (très arrondis : esthétique « soie »)
+     --------------------------------------------------------------- */
+  --radius-sm:   10px;
+  --radius-md:   16px;
+  --radius-lg:   24px;
+  --radius-xl:   34px;
+  --radius-full: 999px;
+
+  /* ---------------------------------------------------------------
+     ÉLÉVATION — ombres BASSES et COLORÉES (teintées primaire, jamais noires)
+     --------------------------------------------------------------- */
+  --shadow-color: 350 35% 45%;             /* HSL teinte d'ombre (rosé) */
+  --shadow-sm: 0 1px 2px   hsl(var(--shadow-color) / .08),
+               0 2px 6px   hsl(var(--shadow-color) / .06);
+  --shadow-md: 0 4px 10px  hsl(var(--shadow-color) / .10),
+               0 10px 24px hsl(var(--shadow-color) / .10);
+  --shadow-lg: 0 10px 24px hsl(var(--shadow-color) / .12),
+               0 24px 60px hsl(var(--shadow-color) / .16);
+
+  /* ---------------------------------------------------------------
+     TYPOGRAPHIE
+     --------------------------------------------------------------- */
+  --font-display: "Fraunces", "Georgia", "Times New Roman", serif;
+  --font-body:    "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI",
+                  Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* échelle modulaire douce (mobile-first), base 16px */
+  --fs-xs:   0.78rem;   /* 12.5px */
+  --fs-sm:   0.875rem;  /* 14px   */
+  --fs-base: 1rem;      /* 16px   */
+  --fs-lg:   1.1875rem; /* 19px   */
+  --fs-xl:   1.5rem;    /* 24px   */
+  --fs-2xl:  2rem;      /* 32px   */
+  --fs-3xl:  2.75rem;   /* 44px   */
+
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* ---------------------------------------------------------------
+     ESPACEMENT (échelle 4px)
+     --------------------------------------------------------------- */
+  --space-1: 0.25rem;  /* 4px  */
+  --space-2: 0.5rem;   /* 8px  */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.5rem;   /* 24px */
+  --space-6: 2rem;     /* 32px */
+  --space-8: 3rem;     /* 48px */
+
+  /* ---------------------------------------------------------------
+     MOUVEMENT — satiné, jamais nerveux (voir DESIGN.md §5)
+     --------------------------------------------------------------- */
+  --ease:        cubic-bezier(0.22, 0.61, 0.36, 1);   /* sortie douce */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);   /* rebond tendre */
+  --dur-fast: 140ms;
+  --dur:      240ms;
+  --dur-slow: 480ms;
+
+  /* divers */
+  color-scheme: light;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top:    env(safe-area-inset-top, 0px);
+}
+
+/* =====================================================================
+   RESET / BASE GLOBALE
+   ===================================================================== */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  min-height: 100svh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-regular);
+  line-height: 1.55;
+  letter-spacing: 0.005em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  /* transition de mood : toute l'app « fond » d'une ambiance à l'autre */
+  transition:
+    background-color var(--dur-slow) var(--ease),
+    color var(--dur-slow) var(--ease);
+}
+
+/* Les éléments couleur héritent de la transition d'ambiance */
+button, input, textarea, select, a,
+.card, .btn, .chip, .badge, .surface,
+.bottom-nav, .app-header, .input, .mood-card, .player {
+  transition:
+    background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease),
+    transform var(--dur-fast) var(--ease-spring);
+}
+
+img, picture, svg, video, canvas {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+button { cursor: pointer; background: none; border: none; }
+
+a { color: var(--primary); text-decoration: none; }
+
+ul, ol { list-style: none; padding: 0; }
+
+/* ---------------------------------------------------------------
+   TITRES — Fraunces, doux et éditorial
+   --------------------------------------------------------------- */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-semibold);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  color: var(--text);
+  text-wrap: balance;
+  /* axe optique variable de Fraunces (grand = plus couture) */
+  font-optical-sizing: auto;
+}
+
+h1 { font-size: var(--fs-3xl); font-weight: var(--fw-bold); letter-spacing: -0.025em; }
+h2 { font-size: var(--fs-2xl); }
+h3 { font-size: var(--fs-xl); }
+h4 { font-size: var(--fs-lg); }
+
+p { text-wrap: pretty; }
+
+small { font-size: var(--fs-sm); color: var(--text-muted); }
+
+/* Sélection de texte aux couleurs du mood */
+::selection { background: var(--primary); color: var(--text-on-primary); }
+
+/* Halo de focus accessible et joli (au clavier seulement) */
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--bg), 0 0 0 6px var(--ring);
+  border-radius: var(--radius-sm);
+}
+
+/* Barres de défilement discrètes */
+* { scrollbar-width: thin; scrollbar-color: var(--surface-2) transparent; }
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-thumb {
+  background: var(--surface-2);
+  border-radius: var(--radius-full);
+}

@@ -1,0 +1,261 @@
+/*
+  Glue applicative — le DESIGN SYSTEM vient de styles/tokens.css, styles/moods.css
+  et styles/components.css (produits par l'agent design). Ici on n'ajoute QUE des
+  classes spécifiques à l'app, qui ne font pas partie du système de composants.
+*/
+
+.app-main {
+  min-height: 100dvh;
+  padding-bottom: calc(104px + env(safe-area-inset-bottom));
+}
+
+/* ----- Accueil ----- */
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+.home__hero {
+  border-radius: var(--radius-xl);
+  padding: var(--space-6) var(--space-5);
+  color: var(--text);
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+.home__hi {
+  margin: 0;
+  opacity: 0.85;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.home__title {
+  margin: var(--space-1) 0 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-3xl);
+  line-height: 1.05;
+}
+.home__sub {
+  margin: var(--space-2) 0 0;
+  opacity: 0.92;
+}
+.home__steps {
+  display: grid;
+  gap: var(--space-3);
+}
+
+/* ----- Étapes d'onboarding ----- */
+.step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  text-decoration: none;
+  color: var(--text);
+}
+.step__icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+.step__body {
+  display: flex;
+  flex-direction: column;
+}
+.step__title {
+  font-weight: var(--fw-semibold);
+}
+.step__sub {
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+}
+.step--done {
+  opacity: 0.6;
+}
+.step--done .step__title::after {
+  content: " ✓";
+  color: var(--primary);
+}
+
+/* ----- Carte vêtement ----- */
+.item-card {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  text-align: left;
+}
+.item-card .thumb {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+}
+.item-card .badge {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+}
+.item-card__name {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+}
+.item-card--selected {
+  outline: 3px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* ----- Utilitaires d'agencement ----- */
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  margin: 0 0 var(--space-3);
+}
+.muted-text {
+  color: var(--text-muted);
+}
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.spacer {
+  flex: 1;
+}
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.center {
+  text-align: center;
+}
+.toolbar {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+.hidden {
+  display: none !important;
+}
+
+/* ----- Panneau d'ajout (draft) ----- */
+.draft {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.draft__preview {
+  width: 100%;
+  max-height: 38vh;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+}
+
+/* ----- Modale ----- */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  padding-bottom: calc(var(--space-4) + var(--safe-bottom));
+  background: hsl(330 30% 12% / 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.modal__card {
+  width: 100%;
+  max-width: 560px;
+  max-height: 90dvh;
+  overflow: auto;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* ----- Essayage ----- */
+.tryon__person {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+}
+.person-thumb {
+  width: 96px;
+  height: 128px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  flex: 0 0 auto;
+}
+.person-photo {
+  width: 100%;
+  max-height: 42vh;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+}
+.selected-strip {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  padding: var(--space-2) 0;
+}
+.selected-strip__img {
+  width: 64px;
+  height: 84px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  flex: 0 0 auto;
+  box-shadow: var(--shadow-sm);
+}
+.result__img {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+.loading-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  background: hsl(330 30% 12% / 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
+  text-align: center;
+  padding: var(--space-5);
+}
+.error-text {
+  color: #c0392b;
+  font-weight: var(--fw-medium);
+}
+
+/* ----- Mood (sous-élément vibe) ----- */
+.mood-card__vibe {
+  font-size: var(--fs-xs);
+}
+
+/* ----- Accès réglages depuis l'accueil ----- */
+.home__settings {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  z-index: 1;
+  font-size: 1.35rem;
+  line-height: 1;
+  text-decoration: none;
+}
+
+/* ----- Zone danger (réglages) ----- */
+.danger h2 {
+  color: #c0392b;
+}
