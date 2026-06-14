@@ -29,6 +29,16 @@ export default function Home() {
         <p className="home__sub">Essaie tes tenues comme par magie ✨</p>
       </header>
 
+      <Link href="/styliste" className="card card--interactive step">
+        <span className="step__icon" aria-hidden>
+          💬
+        </span>
+        <span className="step__body">
+          <span className="step__title">Demande à ta styliste</span>
+          <span className="step__sub">Dis ton envie, elle compose ton look</span>
+        </span>
+      </Link>
+
       <section className="home__steps">
         <Link
           href="/essayer"

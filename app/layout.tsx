@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next";
 import "../styles/tokens.css";
 import "../styles/moods.css";
 import "../styles/components.css";
+import "../styles/cycle2.css";
 import "./globals.css";
 import { AppProvider } from "./providers";
 import { BottomNav } from "@/components/BottomNav";

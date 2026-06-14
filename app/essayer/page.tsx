@@ -35,8 +35,13 @@ function EssayerInner() {
   }, []);
 
   useEffect(() => {
-    const id = params.get("item");
-    if (id) setSelected((s) => (s.includes(id) ? s : [...s, id]));
+    const single = params.get("item");
+    const multi = params.get("items");
+    const ids = [
+      ...(single ? [single] : []),
+      ...(multi ? multi.split(",").filter(Boolean) : []),
+    ];
+    if (ids.length) setSelected((s) => Array.from(new Set([...s, ...ids])));
   }, [params]);
 
   const perso = useMemo(() => items.filter((i) => i.source === "perso"), [items]);

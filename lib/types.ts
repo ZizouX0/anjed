@@ -30,6 +30,17 @@ export const MOODS: { key: MoodKey; label: string; emoji: string; vibe: string }
   { key: "fun", label: "Fun", emoji: "🪩", vibe: "ludique & Y2K" },
 ];
 
+export const OCCASIONS = [
+  { key: "quotidien", label: "Quotidien", emoji: "☀️" },
+  { key: "travail", label: "Travail", emoji: "💼" },
+  { key: "soiree", label: "Soirée", emoji: "🌙" },
+  { key: "rdv", label: "Rendez-vous", emoji: "💗" },
+  { key: "sport", label: "Sport", emoji: "🤸‍♀️" },
+  { key: "special", label: "Spécial", emoji: "✨" },
+] as const;
+
+export type OccasionKey = (typeof OCCASIONS)[number]["key"];
+
 /** Photo de référence de l'utilisatrice (le « mannequin »). */
 export interface Profile {
   id: string;
@@ -58,6 +69,8 @@ export interface Look {
   itemIds: string[];
   mood?: MoodKey;
   favorite?: boolean;
+  occasion?: OccasionKey;
+  plannedFor?: number; // timestamp du jour planifié (agenda)
   createdAt: number;
 }
 

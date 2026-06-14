@@ -3,8 +3,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { BlobImage } from "@/components/BlobImage";
 import { Modal } from "@/components/Modal";
+import { LooksTabs } from "@/components/LooksTabs";
 import { deleteLook, getLooks, updateLook } from "@/lib/db";
-import type { Look } from "@/lib/types";
+import { OCCASIONS, type Look } from "@/lib/types";
 
 async function shareLook(look: Look) {
   try {
@@ -33,12 +34,15 @@ export default function LooksPage() {
   const [loading, setLoading] = useState(true);
 
   const reload = useCallback(() => {
-    getLooks()
-      .then(setLooks)
-      .catch(() => {})
-      .finally(() => setLoading(false));
+    getLooks().then(setLooks).catch(() => {}).finally(() => setLoading(false));
   }, []);
   useEffect(() => reload(), [reload]);
+
+  async function patch(next: Look) {
+    await updateLook(next);
+    setActive(next);
+    reload();
+  }
 
   return (
     <div className="screen stack">
@@ -46,6 +50,7 @@ export default function LooksPage() {
         <h1 className="section-title">Mes looks</h1>
         <p className="muted-text">Ton historique d&rsquo;essayages 📸</p>
       </header>
+      <LooksTabs />
 
       {loading ? null : looks.length === 0 ? (
         <div className="empty-state">
@@ -71,15 +76,53 @@ export default function LooksPage() {
         {active && (
           <>
             <BlobImage blob={active.resultImage} alt="look" className="result__img" />
+
+            <div className="field">
+              <span className="label">Occasion</span>
+              <div className="toolbar">
+                {OCCASIONS.map((o) => (
+                  <button
+                    key={o.key}
+                    type="button"
+                    className={`chip${active.occasion === o.key ? " chip--active" : ""}`}
+                    onClick={() =>
+                      patch({
+                        ...active,
+                        occasion: active.occasion === o.key ? undefined : o.key,
+                      })
+                    }
+                  >
+                    {o.emoji} {o.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <label className="field">
+              <span className="label">Planifier ce look (agenda)</span>
+              <input
+                className="input"
+                type="date"
+                value={
+                  active.plannedFor
+                    ? new Date(active.plannedFor).toISOString().slice(0, 10)
+                    : ""
+                }
+                onChange={(e) =>
+                  patch({
+                    ...active,
+                    plannedFor: e.target.value
+                      ? new Date(e.target.value).getTime()
+                      : undefined,
+                  })
+                }
+              />
+            </label>
+
             <div className="toolbar center">
               <button
                 className="btn btn--ghost"
-                onClick={async () => {
-                  const next = { ...active, favorite: !active.favorite };
-                  await updateLook(next);
-                  setActive(next);
-                  reload();
-                }}
+                onClick={() => patch({ ...active, favorite: !active.favorite })}
               >
                 {active.favorite ? "💔 Retirer" : "❤️ Favori"}
               </button>

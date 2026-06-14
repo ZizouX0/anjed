@@ -57,10 +57,10 @@ export default function DecouvertesPage() {
       {draft ? (
         <ItemDraftEditor
           blob={draft}
-          onSave={async (category, name) => {
+          onSave={async (category, name, image) => {
             await addItem({
               source: "web",
-              image: draft,
+              image,
               category,
               name: name || undefined,
               sourceUrl,

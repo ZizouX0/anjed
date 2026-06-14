@@ -37,10 +37,10 @@ export default function DressingPage() {
       {draft ? (
         <ItemDraftEditor
           blob={draft}
-          onSave={async (category, name) => {
+          onSave={async (category, name, image) => {
             await addItem({
               source: "perso",
-              image: draft,
+              image,
               category,
               name: name || undefined,
             });
