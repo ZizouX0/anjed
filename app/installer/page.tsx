@@ -1,14 +1,15 @@
 import Link from "next/link";
+import { ScreenHeader } from "@/components/ScreenHeader";
 
 export const metadata = { title: "Installer — Anjed's Closet" };
 
 export default function InstallerPage() {
   return (
     <div className="screen stack">
-      <header className="app-header">
-        <h1 className="section-title">Installer l&rsquo;app</h1>
-        <p className="muted-text">Pour l&rsquo;avoir comme une vraie app, avec son icône 💛</p>
-      </header>
+      <ScreenHeader
+        title="Installer l&rsquo;app"
+        subtitle="Pour l&rsquo;avoir comme une vraie app, avec son icône 💛"
+      />
 
       <section className="card stack">
         <h2>📱 Sur iPhone (Safari)</h2>

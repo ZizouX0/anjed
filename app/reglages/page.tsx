@@ -1,5 +1,7 @@
 "use client";
 
+import { ScreenHeader } from "@/components/ScreenHeader";
+
 import { useEffect, useState } from "react";
 import { ImagePicker } from "@/components/ImagePicker";
 import { BlobImage } from "@/components/BlobImage";
@@ -18,9 +20,7 @@ export default function ReglagesPage() {
 
   return (
     <div className="screen stack">
-      <header className="app-header">
-        <h1 className="section-title">Réglages</h1>
-      </header>
+      <ScreenHeader title="Réglages" />
 
       <section className="card stack">
         <h2>Clé IA</h2>

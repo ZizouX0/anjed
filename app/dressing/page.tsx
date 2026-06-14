@@ -1,5 +1,7 @@
 "use client";
 
+import { ScreenHeader } from "@/components/ScreenHeader";
+
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { ImagePicker } from "@/components/ImagePicker";
@@ -29,10 +31,7 @@ export default function DressingPage() {
 
   return (
     <div className="screen stack">
-      <header className="app-header">
-        <h1 className="section-title">Mon dressing</h1>
-        <p className="muted-text">Tes vêtements à toi 💛</p>
-      </header>
+      <ScreenHeader title="Mon dressing" subtitle="Tes vêtements à toi 💛" />
 
       {draft ? (
         <ItemDraftEditor

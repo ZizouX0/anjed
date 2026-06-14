@@ -1,5 +1,7 @@
 "use client";
 
+import { ScreenHeader } from "@/components/ScreenHeader";
+
 import { useCallback, useEffect, useState } from "react";
 import { LooksTabs } from "@/components/LooksTabs";
 import { BlobImage } from "@/components/BlobImage";
@@ -30,9 +32,7 @@ export default function ComparerPage() {
 
   return (
     <div className="screen stack">
-      <header className="app-header">
-        <h1 className="section-title">Comparer</h1>
-      </header>
+      <ScreenHeader title="Comparer" />
       <LooksTabs />
 
       {loading ? null : looks.length < 2 ? (

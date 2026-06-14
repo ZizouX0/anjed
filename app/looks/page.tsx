@@ -1,5 +1,7 @@
 "use client";
 
+import { ScreenHeader } from "@/components/ScreenHeader";
+
 import { useCallback, useEffect, useState } from "react";
 import { BlobImage } from "@/components/BlobImage";
 import { Modal } from "@/components/Modal";
@@ -46,10 +48,7 @@ export default function LooksPage() {
 
   return (
     <div className="screen stack">
-      <header className="app-header">
-        <h1 className="section-title">Mes looks</h1>
-        <p className="muted-text">Ton historique d&rsquo;essayages 📸</p>
-      </header>
+      <ScreenHeader title="Mes looks" subtitle="Ton historique d&rsquo;essayages 📸" />
       <LooksTabs />
 
       {loading ? null : looks.length === 0 ? (

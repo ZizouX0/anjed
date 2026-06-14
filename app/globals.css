@@ -308,3 +308,91 @@ a,
   font-size: var(--fs-sm);
   font-weight: var(--fw-semibold);
 }
+
+/* =====================================================================
+   BARRE D'ÉCRAN AVEC NAVIGATION — retour (‹) + titre + accueil (⌂)
+   (ScreenHeader). S'appuie sur .app-header (sticky + flou) du design system.
+   ===================================================================== */
+.app-header--nav {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-2);
+}
+.app-header__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.app-header__title {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.app-header__sub {
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: 1.4;
+}
+
+/* Boutons ronds d'icône (retour, accueil) — proportions nettes grâce au SVG */
+.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  border-radius: var(--radius-full);
+  color: var(--text);
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform var(--dur-fast) var(--ease-spring),
+    background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+.icon-btn:hover {
+  background: var(--surface);
+  border-color: color-mix(in srgb, var(--primary) 30%, var(--border));
+}
+.icon-btn:active {
+  transform: scale(0.9);
+}
+.icon-btn svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* =====================================================================
+   BARRE DU BAS — taille des icônes/labels.
+   Le design system stylait des <svg> ; nos icônes sont des EMOJI : il faut
+   donc leur donner une taille explicite, sinon elles restent minuscules.
+   ===================================================================== */
+.bottom-nav__icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+.bottom-nav__label {
+  font-size: 0.66rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+.bottom-nav__cta .bottom-nav__icon {
+  font-size: 1.75rem;
+}
+.bottom-nav__cta--active {
+  filter: brightness(1.06) saturate(1.05);
+}

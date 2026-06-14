@@ -1,5 +1,7 @@
 "use client";
 
+import { ScreenHeader } from "@/components/ScreenHeader";
+
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { LooksTabs } from "@/components/LooksTabs";
 import { BlobImage } from "@/components/BlobImage";
@@ -34,9 +36,7 @@ export default function LookbooksPage() {
 
   return (
     <div className="screen stack">
-      <header className="app-header">
-        <h1 className="section-title">Lookbooks</h1>
-      </header>
+      <ScreenHeader title="Lookbooks" />
       <LooksTabs />
 
       {loading ? null : looks.length === 0 ? (

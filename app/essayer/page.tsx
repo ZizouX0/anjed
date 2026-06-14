@@ -1,5 +1,7 @@
 "use client";
 
+import { ScreenHeader } from "@/components/ScreenHeader";
+
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { ImagePicker } from "@/components/ImagePicker";
@@ -124,9 +126,7 @@ function EssayerInner() {
 
   return (
     <div className="screen stack">
-      <header className="app-header">
-        <h1 className="section-title">Essayer</h1>
-      </header>
+      <ScreenHeader title="Essayer" />
 
       {/* Photo de la personne */}
       {person ? (

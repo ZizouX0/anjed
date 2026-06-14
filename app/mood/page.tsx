@@ -1,5 +1,7 @@
 "use client";
 
+import { ScreenHeader } from "@/components/ScreenHeader";
+
 import Link from "next/link";
 import { MOODS } from "@/lib/types";
 import { useApp } from "../providers";
@@ -19,12 +21,10 @@ export default function MoodPage() {
 
   return (
     <div className="screen stack">
-      <header className="app-header">
-        <h1 className="section-title">Ambiance</h1>
-        <p className="muted-text">
-          Choisis ton mood — la musique et les couleurs s&rsquo;adaptent 🎧
-        </p>
-      </header>
+      <ScreenHeader
+        title="Ambiance"
+        subtitle="Choisis ton mood — la musique et les couleurs s&rsquo;adaptent 🎧"
+      />
 
       <div className="mood-selector">
         {MOODS.map((m) => (

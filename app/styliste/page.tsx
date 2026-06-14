@@ -1,5 +1,7 @@
 "use client";
 
+import { ScreenHeader } from "@/components/ScreenHeader";
+
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { BlobImage } from "@/components/BlobImage";
@@ -74,9 +76,7 @@ export default function StylistePage() {
 
   return (
     <div className="screen chat">
-      <header className="app-header">
-        <h1 className="section-title">Ta styliste</h1>
-      </header>
+      <ScreenHeader title="Ta styliste" />
 
       <div className="chat__messages" aria-live="polite">
         {messages.map((m, idx) => (
