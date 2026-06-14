@@ -15,10 +15,20 @@ import {
   setProfile,
 } from "@/lib/db";
 import { blobToDataURL, dataURLToBlob } from "@/lib/img";
-import { getApiKey } from "@/lib/apikey";
+import { getHfToken } from "@/lib/apikey";
 import { randomCombo } from "@/lib/combos";
 import type { Item } from "@/lib/types";
 import { useApp } from "../providers";
+
+// Message d'erreur compréhensible (le moteur gratuit peut être saturé).
+function tryonError(e: unknown): string {
+  const msg = e instanceof Error ? e.message : String(e);
+  if (/quota|gpu|exceeded|rate|limit|busy|full/i.test(msg))
+    return "Le moteur gratuit est très demandé là, tout de suite 😅 Réessaie dans une minute — ou ajoute un jeton Hugging Face gratuit dans Réglages pour avoir ton propre quota.";
+  if (/connect|network|fetch|load|timeout|cors/i.test(msg))
+    return "Connexion au moteur d'essayage impossible. Vérifie ta connexion et réessaie.";
+  return "L'essayage n'a pas pu se faire cette fois. Réessaie dans un instant ✨";
+}
 
 function EssayerInner() {
   const { mood } = useApp();
@@ -69,20 +79,37 @@ function EssayerInner() {
     setResult(null);
     setSaved(false);
     try {
-      const personUrl = await blobToDataURL(person);
-      const garments = await Promise.all(
-        selectedItems.map((i) => blobToDataURL(i.image)),
+      // Essayage virtuel via un moteur gratuit et open-source (IDM-VTON),
+      // appelé directement depuis le navigateur — aucune clé requise.
+      const { Client } = await import("@gradio/client");
+      const token = getHfToken();
+      const app = await Client.connect(
+        "yisol/IDM-VTON",
+        token ? { token: token as `hf_${string}` } : undefined,
       );
-      const r = await fetch("/api/tryon", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ person: personUrl, garments, apiKey: getApiKey() }),
-      });
-      const data = await r.json();
-      if (!r.ok) throw new Error(data.error || "Génération impossible");
-      setResult(data.image);
+      // On applique les vêtements l'un après l'autre : le résultat de l'un
+      // devient la « photo » pour le suivant (superposition haut + bas, etc.).
+      let current: Blob = person;
+      for (const it of selectedItems) {
+        const out = await app.predict("/tryon", [
+          { background: current, layers: [], composite: null },
+          it.image,
+          it.name || "a clothing item",
+          true, // masquage automatique
+          false, // recadrage automatique
+          25, // étapes de génération
+          Math.floor(Math.random() * 100000), // seed
+        ]);
+        const first = (out.data as unknown[])[0] as { url?: string } | string;
+        const url = typeof first === "string" ? first : first?.url;
+        if (!url) throw new Error("no-image");
+        // Le résultat HF n'a pas d'en-tête CORS : on passe par notre proxy.
+        const proxied = `/api/img-proxy?url=${encodeURIComponent(url)}`;
+        current = await (await fetch(proxied)).blob();
+      }
+      setResult(await blobToDataURL(current));
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Génération impossible");
+      setError(tryonError(e));
     } finally {
       setGenerating(false);
     }
