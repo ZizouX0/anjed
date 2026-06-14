@@ -278,3 +278,33 @@ a,
 .bubble {
   overflow-wrap: anywhere;
 }
+
+/* ----- Guide d'installation (liste numérotée) ----- */
+.guide {
+  display: grid;
+  gap: var(--space-3);
+  counter-reset: step;
+}
+.guide li {
+  position: relative;
+  padding-left: 2.5rem;
+  min-height: 1.75rem;
+  display: flex;
+  align-items: center;
+}
+.guide li::before {
+  counter-increment: step;
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-full);
+  background: var(--primary);
+  color: var(--text-on-primary);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+}

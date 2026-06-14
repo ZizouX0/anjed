@@ -91,6 +91,9 @@ export default function Home() {
         <Link href="/reglages" className="btn btn--ghost btn--block">
           ⚙️ Réglages &amp; confidentialité
         </Link>
+        <Link href="/installer" className="btn btn--ghost btn--block">
+          📲 Installer l&rsquo;app sur mon téléphone
+        </Link>
       </section>
     </div>
   );
