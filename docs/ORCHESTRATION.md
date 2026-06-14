@@ -58,5 +58,6 @@ d'orchestre.
   priorisation impitoyable. ✅
 - **Cycle 2** — Styliste IA conversationnelle, « améliorer la photo », comparer des looks,
   lookbooks & agenda ; design des nouveaux écrans (Soie & Lumière) ; build vert + 35 tests. ✅
-- **Cycle 3** — DevOps (CI + E2E) + audit accessibilité (web-design-guidelines) + captures
-  réelles (webapp-testing). _en cours_
+- **Cycle 3** — DevOps : CI GitHub Actions (lint + types + tests + build) + 8 tests E2E
+  Playwright ; audit accessibilité (web-design-guidelines) appliqué ; captures réelles
+  (webapp-testing). ✅
